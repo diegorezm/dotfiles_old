@@ -7,7 +7,7 @@
 Configuration_arch(){
           sudo pacman -Syyu && sudo pacman -S --needed - < pkglist.txt
           mkdir -p ~/.config/ && mv .config/*  ~/.config/ 
-          mkdir -p ~./local/ && mv .local/bin ~/.local/bin 
+          mkdir -p ~./local/ && mv .local/bin ~/.local/
           mv .* ~/
   }
 
