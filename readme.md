@@ -1,5 +1,6 @@
 # Dotfiles
 Just so i don't have to do it again.
+![qtile print](qtile.png)
 
 # Rofi themes
 Themes are not mine, i just changed them a little, they are from:
