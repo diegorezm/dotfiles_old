@@ -11,6 +11,8 @@ Themes are not mine, i just changed them a little, they are from:
 Script only works on arch linux.
 
 ```
+git clone https://github.com/diegorezm/dotfiles-d
+cd dotfiles-d
 chmod +x configure
 ./configure
 ```
