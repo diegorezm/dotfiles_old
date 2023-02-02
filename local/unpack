@@ -1,0 +1,23 @@
+#!/bin/bash
+
+
+case "$1" in
+  *.rar) 
+      unrar x "$1" > /dev/null | echo "Extracting..."
+      ;;
+    *.zip)
+			unzip "$1" $null > dev/null | echo "Extracting..."
+      ;;
+      *.tbz2|*.tar.bz2)
+			tar xjvf "$1"  > dev/null | echo "Extracting..." 
+			;;
+		*.tgz|*.tar.gz)
+			tar xzvf "$1"  > dev/null | echo "Extracting..." 
+			;;
+		*.gz)
+			gzip -d "$1"  > dev/null | echo "Extracting..." 
+			;;
+		*.bzip2|*.bz2)
+			bzip2 -d "$1"  > dev/null | echo "Extracting..." 
+			;;
+esac
