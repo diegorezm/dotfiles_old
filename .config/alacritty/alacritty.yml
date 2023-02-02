@@ -16,7 +16,7 @@ font:
     style: Italic
 
   bold_italic:
-    family: Fira Coded
+    family: Fira Code
     style: Bold Italic
 
   size: 12
