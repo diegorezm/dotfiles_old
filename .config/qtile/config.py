@@ -160,6 +160,16 @@ def init_widgets_list():
 
 						background=catppuccin["black"],
 			),
+                widget.Spacer(
+                        length=3,
+                        background="#00000000",
+            ),
+                widget.CurrentLayoutIcon(
+                        foreground=catppuccin["white"],
+                ),
+                widget.CurrentLayout(
+                        foreground=catppuccin["white"],
+                ),
 				widget.WindowName(format='{state} {name}', empty_group_string='Arch '),
 			    widget.Spacer(),	
                 widget.Mpris2(
