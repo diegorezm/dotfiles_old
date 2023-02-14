@@ -16,7 +16,7 @@ unsetopt correct_all
 
 #        PROMPT
 NEWLINE=$'\n'
-PROMPT="%B%F{139}[%0~]%f%b%F{2}$ "
+PROMPT=" %(?.%F{154}√.%F{160}? %?)%f %B%F{213}[%0~]%f%b%F{154} > "
 
 export KEYTIMEOUT=1
 #       Show vim mode
