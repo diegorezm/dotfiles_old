@@ -223,7 +223,7 @@ def init_widgets_list():
                         initial_text="Aguarde...",
 						colour_have_updates=catppuccin["bg2"],
 						distro = "Arch_checkupdates",
-                        mouse_callbacks = {'Button1': lazy.spawn(terminal + ' -e sudo pacman -Syyu')},
+                        mouse_callbacks = {'Button1': lazy.spawn('chk_up'),'Button3': lazy.spawn(terminal + ' -e sudo pacman -Syyu')},
 					),
 			    widget.TextBox(
 						text="",
