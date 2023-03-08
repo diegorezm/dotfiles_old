@@ -34,6 +34,8 @@ ttf-fira-code
 ttf-jetbrains-mono
 ttf-jetbrains-mono-nerd
 unzip
+unrar 
+bazip2
 xclip
 xorg-xbacklight
 xorg-xclipboard
