@@ -10,7 +10,7 @@ mod = "mod4"
 terminal = "alacritty"
 home = os.path.expanduser('~')
 nav = "firefox"
-nav_app= "rofi -show drun -theme 'drofi' -show-icons -p ' '"
+nav_app= "rofi -show drun -theme 'drofi' -show-icons"
 main_font = "JetBrainsMono Nerd Font"
 explorer="pcmanfm"
 
@@ -37,19 +37,19 @@ keys = [
 	Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
 	Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
 	Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-	Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 	#   Ult keys
-	Key([],"F8",lazy.spawn("xbacklight -dec 10")),
-	Key([],"F9",lazy.spawn("xbacklight -inc 10")),
-	Key([],"F10",lazy.spawn("pamixer -d 10")),
-	Key([],"F11",lazy.spawn("pamixer -i 10")),
+	Key([mod],"F8",lazy.spawn("xbacklight -dec 10")),
+	Key([mod],"F9",lazy.spawn("xbacklight -inc 10")),
+	Key([mod],"F10",lazy.spawn("pamixer -d 10")),
+	Key([mod],"F11",lazy.spawn("pamixer -i 10")),
 	Key([],"Print",lazy.spawn("screenshot.sh")),
-	Key([],"F1",lazy.spawn("power.sh")),
+	Key([mod],"F1",lazy.spawn("power.sh")),
 	Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 	Key([mod], "e", lazy.spawn(explorer), desc="Launch file manager"),
 	Key([mod], "p", lazy.spawn("mpc toggle"), desc="Toggle mpd"),
 	Key([mod], "n", lazy.spawn("rofipd"), desc="Change the music"),
 	Key([mod], "m", lazy.spawn("alacritty -e ncmpcpp"), desc="Open music player"),
+	Key([mod],"F2", lazy.spawn("playlist_mpd"), desc="Open music player"),
 	Key(
 		[mod, "shift"],
 		"Return",
@@ -170,13 +170,14 @@ def init_widgets_list():
 						this_current_screen_border = catppuccin["red1"],
 				),
                 widget.Spacer(
-                        length=3,
+                        length=8,
             ),
                 widget.Mpd2(
                     foreground=catppuccin["white"],
                     play_states={'pause':'  ','play':'','stop':'  '},
-                    max_chars=40,
+                    max_chars=80,
                     status_format='{play_status} {title}',
+                    color_progress=catppuccin["red"],
                     no_connection='   no connection',
 
                 ),

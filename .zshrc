@@ -1,4 +1,3 @@
-pokemon-colorscripts -r --no-title
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   exec startx
 fi
@@ -42,14 +41,11 @@ preexec() { echo -ne '\e[5 q' ;}
 
 
 #       alias
-alias p="sudo pacman"
-alias pp="pacman -Ss"
-alias pi="sudo pacman -S"
-alias pu="sudo pacman -Syu"
-alias ap="sudo pacman -Sy"
-alias aps="pacman -Ss"
+alias ap="sudo pacman -S"
+alias p="sudo pacmna -Sy"
 alias rp="sudo pacman -Rcs"
-alias ra="ranger"
+alias pu="sudo pacman -Syu"
+alias aps="pacman -Ss"
 alias grep="grep --color=auto"
 alias vf="vifm"
 alias sxiv="sxiv -b"
