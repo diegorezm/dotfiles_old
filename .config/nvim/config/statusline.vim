@@ -1,13 +1,15 @@
-set laststatus=2
-set statusline=
-set statusline+=%#pandocDefinitionTerm#%{(mode()=='n')?'\ \ NORMAL\ ':''}
-set statusline+=%#ErrorMsg#%{(mode()=='i')?'\ \ INSERT\ ':''}
+set laststatus=2 
+
+hi statusline guibg=green
+
+set statusline+=%#RedrawDebugNormal#%{(mode()=='n')?'\ \ NORMAL\ ':''}
+set statusline+=%#DiffDelete#%{(mode()=='i')?'\ \ INSERT\ ':''}
 set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
 set statusline+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
-set statusline+=\ %2M
-set statusline+=\ %2F  
-"       put things on the right 
+
+set statusline+=%#CocListLine#
 set statusline+=%=
-set statusline+=\ %2l:%c/%2L
-set statusline+=\ %2p%%
-set statusline+=\ [%n]
+set statusline+=%h%m%r
+set statusline+=%#CocListBgBlack#
+set statusline+=\<<\%f\>>\%*
+

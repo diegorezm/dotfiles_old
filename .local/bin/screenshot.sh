@@ -4,9 +4,7 @@ declare option=(" Fullscreen
  Cropped
  Clean")
 
-
 esc=$(echo -e "${option[@]}" | rofi -theme "drofi" -dmenu -p ' ')
-
 
 case "${esc#* }" in
         Fullscreen)

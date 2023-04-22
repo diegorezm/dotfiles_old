@@ -3,7 +3,7 @@
 play_list(){
         num=$(mpc lsplaylists | sort -n |rofi -dmenu -theme "drofi" -p 'Choose one:')
         if [ -z "$num" ];then
-                 dunstify  --urgency=critical "ERRO!" && exit 0
+                 dunstify "ERRO!" && exit 0
         else
                 mpc clear 
                 mpc load $num 
