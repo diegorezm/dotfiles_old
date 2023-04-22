@@ -181,7 +181,7 @@ def init_widgets_list():
 						padding_x = 3,
 						borderwidth = 3,
 						background=xrcat.getResource("*background"),
-						highlight_color=[xrcat.getResource("*color8"),xrcat.getResource("color8")],
+						highlight_color=[xrcat.getResource("*color0"),xrcat.getResource("color8")],
 						inactive=xrcat.getResource("color8"),
 						this_current_screen_border = xrcat.getResource("color1"),
 				),
