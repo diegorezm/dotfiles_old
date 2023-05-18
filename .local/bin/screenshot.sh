@@ -2,7 +2,7 @@
 
 declare option=(" Fullscreen
  Cropped
- Clean")
+󰃢 Clean")
 
 esc=$(echo -e "${option[@]}" | rofi -theme "drofi" -dmenu -p ' ')
 

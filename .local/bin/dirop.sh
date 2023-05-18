@@ -2,7 +2,8 @@
 declare option=(" .local
  download
  images
- document 
+ Xresources
+ docs 
  videos 
  code
  music
@@ -10,8 +11,8 @@ declare option=(" .local
  share")
 esc=$(echo -e "${option[@]}" | rofi -theme "drofi" -dmenu -p 'Choose one:')
 case "${esc#* }" in
-        document)
-                esc="$HOME/doc"
+        docs)
+                esc="$HOME/docs"
         ;;
         .local)
                 esc="$HOME/.local"
@@ -26,7 +27,7 @@ case "${esc#* }" in
                 esc="$HOME/img"
         ;;
         code)
-                esc="$HOME/doc/code"
+                esc="$HOME/docs/code"
         ;;
         music)
                 esc="$HOME/msc"
@@ -36,6 +37,9 @@ case "${esc#* }" in
         ;;
         share)
                 esc="$HOME/.local/share"
+        ;;
+        Xresources)
+                esc="$HOME/.config/Xresources"
         ;;
         *)
                 exit 0 

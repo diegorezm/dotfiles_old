@@ -5,8 +5,7 @@ wallpaper() {
         convert $wll -blur 8x4 /tmp/lock.png
         notify-send "The screen is being locked.. "  -i /tmp/lock.png
         mpc pause
-        i3lock --bar-indicator --bar-color="#2e2e2e" -k --timestr="%H:%M"  --timecolor=#ffffffcc \
-        --datecolor=#ffffffcc  -i /tmp/lock.png
+        i3lock --bar-indicator --bar-color="#24273A" -k --time-str="%H:%M"  --time-color="#ffffffcc" --date-color="#ffffffcc"  -i $wll
         rm /tmp/lock.png
 }
 
@@ -15,8 +14,7 @@ default() {
         convert /tmp/printlock.png -blur 8x4 /tmp/printlock.png
         notify-send "The screen is being locked.. "  -i /tmp/printlock.png
         mpc pause
-        i3lock --bar-indicator --bar-color="#2e2e2e" -k --timestr="%H:%M"  --timecolor=#ffffffcc \
-        --datecolor=#ffffffcc  -i /tmp/printlock.png
+        i3lock --bar-indicator --bar-color="#24273A" -k --time-str="%H:%M"  --time-color="#ffffffcc" --date-color="#ffffffcc"  -i /tmp/printlock.png 
         rm /tmp/printlock.png
 }
 

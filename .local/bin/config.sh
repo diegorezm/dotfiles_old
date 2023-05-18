@@ -22,7 +22,7 @@ case "${esc#* }" in
                 esc="$HOME/.config/qtile/config.py"
         ;;
         nvim)
-                esc="$HOME/.config/nvim/init.vim"
+                esc="$HOME/.config/nvim/"
         ;;
         alacritty)
                 esc="$HOME/.config/alacritty/alacritty.yml"

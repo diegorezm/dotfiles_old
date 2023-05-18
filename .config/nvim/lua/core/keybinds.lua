@@ -2,6 +2,10 @@ local function map(m, k, v)
     vim.keymap.set(m, k, v, { silent = true })
 end
 
+
+local opts = {silent = true, noremap =true}
+  
+
  -- nvim tree
 map('n','<leader>b',':NvimTreeFindFileToggle<CR>')
 
@@ -10,8 +14,8 @@ map('n', '<C-q>', '<CMD>q<CR>')
 
 -- copy and paste
 
-map('n','<C-c>','"*y',{noremap=true,silent=true})
-map('n','<C-v>','"+p',{noremap=true,silent=true})
+map({"n", "v"}, "<C-c>", [["+y]])
+map("n", "<C-c>", [["+Y]])
 
 -- vertical split
 map('n','<C-w>l','<C-l>',{ silent = true })
@@ -30,4 +34,7 @@ map('n','<C-n>',':tabn<CR>')
 
 -- comment
 map('n','<leader>cc',':Comment<CR>')
+
+map('n','<leader>p',':<CR>')
+
 

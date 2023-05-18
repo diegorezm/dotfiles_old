@@ -4,6 +4,10 @@ require("core.plugins")
 require("core.plugin_config.completion")
 require("core.plugin_config.lsp_config")
 require("core.plugin_config.nvim_tree")
-vim.cmd [[ source ~/.config/nvim/lua/core/statusline.vim ]]
-
+require("core.plugin_config.telescope")
+require("core.plugin_config.colorizer")
+require("core.plugin_config.treesitter")
+require("core.plugin_config.ident_lines")
+vim.cmd [[source ~/.config/nvim/lua/core/statusline.vim]]
+vim.cmd [[source ~/.config/nvim/lua/core/tex.vim]]
 vim.cmd [[colorscheme catppuccin-macchiato]]
