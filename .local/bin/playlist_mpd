@@ -1,9 +1,9 @@
 #!/bin/bash 
 
 play_list(){
-        num=$(mpc lsplaylists | sort -n |rofi -dmenu -theme "drofi" -p 'Choose one:')
+        num=$(mpc lsplaylists | sort -n |rofi -dmenu -theme "msc_macchiato" -p 'Choose one:')
         if [ -z "$num" ];then
-                 dunstify "ERRO!" && exit 0
+                  exit 0
         else
                 mpc clear 
                 mpc load $num 

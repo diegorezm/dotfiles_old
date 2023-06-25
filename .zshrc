@@ -1,5 +1,5 @@
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  exec startx
+ exec startx
 fi
 #       General conf
 ufetch
@@ -17,7 +17,7 @@ unsetopt correct_all
 
 #        PROMPT
 NEWLINE=$'\n'
-PROMPT=" %(?.%F{154}√.%F{160}? %?)%f %B%F{213}[%0~]%f%b%F{154} > "
+PROMPT=" %(?.%F{154}√.%F{160}? %?)%f %B%F{213}  %0~%f%b%F{154} > "
 
 export KEYTIMEOUT=1
 #       Show vim mode
@@ -47,6 +47,8 @@ alias p="sudo pacmna -Sy"
 alias rp="sudo pacman -Rcs"
 alias pu="sudo pacman -Syu"
 alias aps="pacman -Ss"
+alias zathura="devour zathura"
+alias mpv="devour mpv"
 alias grep="grep --color=auto"
 alias vf="vifm"
 alias sxiv="sxiv -b"
@@ -82,7 +84,7 @@ bindkey -v
 bindkey '^R' history-incremental-search-backward
 
 
-bindkey -s '^f' 'nvim $(find ~/.local/bin/ -type f | fzf)\n'
+bindkey -s '^f' 'nvim $(find ~/.local/bin/ ~/docs/code/ -type f | fzf)\n'
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 

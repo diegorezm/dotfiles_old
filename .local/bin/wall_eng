@@ -1,23 +1,25 @@
 #!/bin/bash 
 cd $HOME/img/wallpapers
 wall_eng(){
-        list=$(ls $HOME/img/wallpapers/*.{jpg,jpeg,png,gif}| awk -F/ '{print $NF}')
+        list=$(ls $HOME/img/wallpapers/*.{jpg,jpeg,png}| awk -F/ '{print $NF}')
         for i in $list;do
                 echo " $i" 
         done
 }
-while :
-do
-        chs=$(wall_eng | rofi -dmenu -theme "vrofi" -p 'Choose one:') 
-        declare op=(" Yes 
-         No")
-        sxiv -b ${chs#* } & sr=$(echo -e "${op[@]}" | rofi -theme "drofi" -dmenu -p 'Sure:')  
+chs=$(wall_eng | rofi -dmenu -theme "wallpaper_macchiato" -p 'Choose one:') 
+case "$chs" in
+  "")  exit
+  ;;
+esac
 
-        if  [ ${sr#* } == 'Yes' ]  ; then 
-                changer ${chs#* }
-                killall sxiv && exit 0
-        else
-                killall sxiv 
+declare op=(" Yes 
+ No")
+sxiv -b ${chs#* } & sr=$(echo -e "${op[@]}" | rofi -theme "drofi" -dmenu -p 'Sure:')  
 
-        fi
-done
+if  [ ${sr#* } == 'Yes' ]  ; then 
+  changer ${chs#* }
+  killall sxiv && exit 0
+else
+  killall sxiv 
+
+fi

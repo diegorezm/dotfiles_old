@@ -9,7 +9,7 @@ declare option=(" .local
  music
  bin
  share")
-esc=$(echo -e "${option[@]}" | rofi -theme "drofi" -dmenu -p 'Choose one:')
+esc=$(echo -e "${option[@]}" | rofi -theme "config_macchiato" -dmenu -p 'Choose one:')
 case "${esc#* }" in
         docs)
                 esc="$HOME/docs"

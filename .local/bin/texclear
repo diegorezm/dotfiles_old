@@ -1,6 +1,5 @@
 #!/bin/sh
 # Stolen from luke smith
-# https://github.com/LukeSmithxyz/voidrice/blob/master/.local/bin/texclear
 
 case "$1" in
 	*.tex)
