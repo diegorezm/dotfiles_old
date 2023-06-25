@@ -2,7 +2,7 @@ import json
 import subprocess
 import requests
 
-api_key = "DLSh0juDc4yfD7IcDCc4SwBtQwo9MUqo"
+api_key = ""
 response = requests.get(f'https://wallhaven.cc/api/v1/search?apikey={api_key}&sorting=random')
 file = response.text
 data = json.loads(file)
