@@ -21,6 +21,7 @@ o.undodir = os.getenv("HOME") .. "/.cache/undodir"
 o.undofile = true
 
 o.list = true
+o.listchars = 'trail:·,nbsp:◇,tab: ,extends:▸,precedes:◂'
 
 -- Clipboard 
 o.clipboard = 'unnamedplus'

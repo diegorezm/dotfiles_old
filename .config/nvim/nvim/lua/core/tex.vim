@@ -1,1 +1,0 @@
-	autocmd VimLeave *.tex !texclear %

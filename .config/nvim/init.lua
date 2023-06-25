@@ -8,6 +8,8 @@ require("core.plugin_config.telescope")
 require("core.plugin_config.colorizer")
 require("core.plugin_config.treesitter")
 require("core.plugin_config.ident_lines")
+require("core.plugin_config.live_server")
 vim.cmd [[source ~/.config/nvim/lua/core/statusline.vim]]
 vim.cmd [[source ~/.config/nvim/lua/core/tex.vim]]
 vim.cmd [[colorscheme catppuccin-macchiato]]
+vim.cmd [[hi! Normal ctermbg=NONE guibg=NONE]]

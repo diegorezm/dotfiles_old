@@ -1,6 +1,8 @@
 # IMPORT
 import os
-from libqtile import bar, layout, widget
+import subprocess
+from libqtile import hook
+from libqtile import backend, bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -12,12 +14,17 @@ mod = "mod4"
 terminal = "alacritty"
 home = os.path.expanduser('~')
 nav = "firefox"
-nav_app= "rofi -show drun -theme 'drofi' -show-icons"
+nav_app= "rofi -show drun -theme 'macchiato_styled' -show-icons"
 main_font = "JetBrainsMono Nerd Font"
 explorer="pcmanfm"
 
 # pip install xrcat
 xrcat.updateResources()
+
+@hook.subscribe.startup_once
+def autostart():
+    changer = os.path.expanduser('~/.config/qtile/autostart.sh')
+    subprocess.Popen([changer])
 
 #   KEY BINDS
 keys = [
@@ -56,6 +63,8 @@ keys = [
 	Key([mod], "m", lazy.spawn("alacritty -e ncmpcpp"), desc="Open music player"),
 	Key([mod],"F2", lazy.spawn("playlist_mpd"), desc="playlist"),
 	Key([mod],"F3", lazy.spawn("wall_eng"), desc="wallpaper script"),
+	Key([mod,"shift"],"F3", lazy.spawn("wallpaper_machine.sh"), desc="wallpaper script"),
+	Key([mod],"F4", lazy.spawn("binary_converter"), desc="for fun"),
 	Key(
 		[mod, "shift"],
 		"Return",
@@ -125,9 +134,9 @@ layout_theme = {"border_width": 2,
 # 	"white": "#cdd6f4",
 # 	"gray": "#6e6c7e",
 # 	"black": "#11111b",
-#     "rosewater":"#f5e0dc",
+#   "rosewater":"#f5e0dc",
 # 	"bg2":"#313244",
-#     "bg3":"#24273a",
+#   "bg3":"#24273a",
 # }
 
 
@@ -155,17 +164,6 @@ extension_defaults = widget_defaults.copy()
 def init_widgets_list():
 	
 	widgets_list = [
-            # widget.Wallpaper(
-            #             directory="~/img/wallpapers",
-            #             wallpaper_command=["changer"],
-            #             max_chars=8,
-            #             random_selection=False,
-            #             label="  ",
-            #             foreground=catppuccin["white"],
-            #             background=catppuccin["bg3"],
-
-            #             mouse_callbacks = {'Button3': lazy.spawn("pcmanfm img/wallpapers")},
-            # ),
                 widget.CurrentLayoutIcon(
                         foreground=xrcat.getResource("*color8"),
                 ),
@@ -181,8 +179,10 @@ def init_widgets_list():
 						padding_x = 3,
 						borderwidth = 3,
 						background=xrcat.getResource("*background"),
-						highlight_color=[xrcat.getResource("*color0"),xrcat.getResource("color8")],
+						highlight_color=xrcat.getResource("background"),
 						inactive=xrcat.getResource("color8"),
+                        disable_drag = True,
+                        other_current_screen_border=xrcat.getResource("color5"),
 						this_current_screen_border = xrcat.getResource("color1"),
 				),
                 widget.Spacer(
@@ -201,20 +201,20 @@ def init_widgets_list():
 			    widget.TextBox(
 						text="",
 						padding=-2,
-						fontsize=30,
-						foreground=xrcat.getResource("color3"),
-						background=xrcat.getResource("background"),
+						fontsize=25,
+                        foreground= xrcat.getResource("color3"),
+                        background= xrcat.getResource("color3"),
 			),
 				widget.Clock(
 						format=" %H:%M",
-						background=xrcat.getResource("color3"),
+                        background= xrcat.getResource("color3"),
 						),
 			    widget.TextBox(
 						text="",
 						padding=-2,
-						fontsize=30,
-						foreground=xrcat.getResource("color3"),
-						background=xrcat.getResource("background"),
+						fontsize=25,
+                        foreground= xrcat.getResource("color3"),
+                        background= xrcat.getResource("color3"),
 			),
 			    widget.Spacer(),	
 				widget.Systray(),
@@ -222,8 +222,7 @@ def init_widgets_list():
                         length=3,
                         background=xrcat.getResource("background"),
             ),
-
-			widget.TextBox(
+                widget.TextBox(
 						text="",
 						padding=-2,
 						fontsize=25,
@@ -231,7 +230,7 @@ def init_widgets_list():
 						background=xrcat.getResource("background"),
 			),
 				widget.CheckUpdates(
-						update_interval = 1800,
+						update_interval = 800,
 						no_update_string='No updates',
 						# font='JetBrains Mono ExtraBold',
 						display_format = "󰃘 {updates} ",
@@ -255,15 +254,15 @@ def init_widgets_list():
             			background=xrcat.getResource("background"),
             ),
 
-			widget.TextBox(
+			    widget.TextBox(
 						text="",
 						padding=-2,
 						fontsize=30,
-						foreground=xrcat.getResource("color3"),
+						foreground=xrcat.getResource("color6"),
 						background=xrcat.getResource("background"),
 			),
 				widget.PulseVolume(
-						background=xrcat.getResource("color3"),
+						background=xrcat.getResource("color6"),
 						fmt='󰕾 {}',
 						volume_down_command="pamixer -d 10",
 						volume_up_command="pamixer -i 10",
@@ -275,9 +274,10 @@ def init_widgets_list():
 						text="",
 						padding=-2,
 						fontsize=30,
-						foreground=xrcat.getResource("color3"),
+						foreground=xrcat.getResource("color6"),
 						background=xrcat.getResource("background"),
 			),
+
 	] 
 
 	return widgets_list
@@ -307,6 +307,7 @@ mouse = [
 	Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
+
 #   IDK
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
@@ -324,8 +325,10 @@ floating_layout = layout.Floating(
 		Match(wm_class="makebranch"),  # gitk
 		Match(wm_class="maketag"),  # gitk
 		Match(wm_class="Sxiv"),  # gitk
+		Match(wm_class="feh"),  # gitk
 		Match(wm_class="ssh-askpass"),  # ssh-askpass
 		Match(wm_class="discord"),  # ssh-askpass
+        Match(wm_class="Galculator"),  # ssh-askpass
 		Match(title="branchdialog"),  # gitk
 		Match(title="pinentry"),  # GPG key password entry
 	]
