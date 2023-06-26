@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-touch index.html && touch style.html
+touch index.html && touch style.css
 
 echo "<!DOCTYPE html>
 <html>
