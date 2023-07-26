@@ -1,1 +1,2 @@
 .local/bin/api.py
+.config/nvim/lazy-lock.json
