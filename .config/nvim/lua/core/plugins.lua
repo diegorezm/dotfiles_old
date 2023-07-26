@@ -57,18 +57,21 @@ local plugins = {
 
     { "lukas-reineke/indent-blankline.nvim" },
 
-  {
-       'barrett-ruth/live-server.nvim',
-       build = 'yarn global add live-server',
-       config = true
-  },
-
     -- autopair
     {
     "windwp/nvim-autopairs",
      config = function() require("nvim-autopairs").setup {} end
-  }
-
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+}
 
 }
 

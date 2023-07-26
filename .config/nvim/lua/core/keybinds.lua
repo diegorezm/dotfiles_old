@@ -34,7 +34,8 @@ map('n','<C-n>',':tabn<CR>')
 
 -- comment
 map('n','<leader>cc',':Comment<CR>')
-
 map('n','<leader>p',':<CR>')
+
+map('n','<C-s>',':w<CR>')
 
 
