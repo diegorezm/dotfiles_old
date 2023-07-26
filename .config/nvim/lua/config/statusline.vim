@@ -12,4 +12,3 @@ set statusline+=%=
 set statusline+=%h%m%r
 set statusline+=%#CocListBgBlack#
 set statusline+=\<<\%f\>>\%*
-

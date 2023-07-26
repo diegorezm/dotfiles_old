@@ -40,3 +40,10 @@ o.hlsearch = false
 o.incsearch = true
 
 o.smartindent = true
+
+--  colorscheme
+vim.cmd[[ hi! Normal ctermbg=NONE guibg=NONE  ]]
+
+
+-- auto indent on save
+vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
