@@ -14,6 +14,10 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
   { "catppuccin/nvim", name = "catppuccin" },
+  {'Shatur/neovim-ayu'},
+  {'junegunn/fzf'},
+  {'junegunn/fzf.vim'},
+  {'norcalli/nvim-colorizer.lua'},
   {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
@@ -31,9 +35,9 @@ local plugins = {
       -- Autocompletion
       { 'hrsh7th/nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lsp' },
-      {'saadparwaiz1/cmp_luasnip'},
-      {'rafamadriz/friendly-snippets'},
-      {'L3MON4D3/LuaSnip'},
+      { 'saadparwaiz1/cmp_luasnip' },
+      { 'rafamadriz/friendly-snippets' },
+      { 'L3MON4D3/LuaSnip' },
     }
   },
   -- nvim tree
@@ -61,6 +65,16 @@ local plugins = {
       require('Comment').setup()
     end
   },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  }
 }
 
 

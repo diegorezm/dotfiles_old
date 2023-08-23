@@ -1,30 +1,32 @@
 # IMPORT
 import os
 import subprocess
-from libqtile import hook
-from libqtile import backend, bar, layout, widget
+from libqtile import hook,widget
+from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
-from xrcat import xrcat
+from colors.ayu_dark import ayu_dark as color
 
 
 #   DEFINE VARIABLES
 mod = "mod4"
-terminal = "alacritty"
+terminal = "kitty"
 home = os.path.expanduser('~')
 nav = "firefox"
+getWifi = subprocess.run("getWifi.sh",shell=True)
 nav_app= "rofi -show drun -theme 'macchiato_styled' -show-icons"
 main_font = "JetBrainsMono Nerd Font"
 explorer="pcmanfm"
+monitor=subprocess.run("xrandr | grep -sw 'connected' | wc -l",shell=True, stdout=subprocess.PIPE,universal_newlines=True, stderr=subprocess.PIPE).stdout.strip()
 
-# pip install xrcat
-xrcat.updateResources()
+
 
 @hook.subscribe.startup_once
 def autostart():
     changer = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.Popen([changer])
+
+
 
 #   KEY BINDS
 keys = [
@@ -57,20 +59,15 @@ keys = [
 	Key([],"Print",lazy.spawn("screenshot.sh")),
 	Key([mod],"F1",lazy.spawn("power.sh")),
 	Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+	Key([mod,"shift"], "Return", lazy.spawn("engine.sh"), desc="launch search engine"),
 	Key([mod], "e", lazy.spawn(explorer), desc="Launch file manager"),
 	Key([mod], "p", lazy.spawn("mpc toggle"), desc="Toggle mpd"),
 	Key([mod], "n", lazy.spawn("rofipd"), desc="Change the music"),
-	Key([mod], "m", lazy.spawn("alacritty -e ncmpcpp"), desc="Open music player"),
+	Key([mod], "m", lazy.spawn(f"{terminal} -e ncmpcpp"), desc="Open music player"),
 	Key([mod],"F2", lazy.spawn("playlist_mpd"), desc="playlist"),
 	Key([mod],"F3", lazy.spawn("wall_eng"), desc="wallpaper script"),
 	Key([mod,"shift"],"F3", lazy.spawn("wallpaper_machine.sh"), desc="wallpaper script"),
 	Key([mod],"F4", lazy.spawn("binary_converter"), desc="for fun"),
-	Key(
-		[mod, "shift"],
-		"Return",
-		lazy.layout.toggle_split(),
-		desc="Toggle between split and unsplit sides of stack",
-	),
 	Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 	Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
 	Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
@@ -85,7 +82,7 @@ keys = [
 
 ]
 
-groups       = [
+groups = [
 	Group("1",layout='monadtall'),
 	Group("2",layout='monadtall'),
 	Group("3",layout='monadtall'),
@@ -111,33 +108,9 @@ groups.append(
 
 layout_theme = {"border_width": 2,
                 "margin": 8,
-                "border_focus":xrcat.getResource("color13"),
-                "border_normal":xrcat.getResource("color8"),
+                "border_focus":color["color13"],
+                "border_normal":color["color8"],
                 }
-
-
-# colors (in case xrcat stops working)
-
-# catppuccin = {
-# 	"flamingo": "#f2cdcd",
-# 	"mauve": "#cba6f7",
-# 	"pink": "#f5c2e7",
-# 	"maroon": "#eba0ac",
-# 	"red": "#f38ba8",
-#     "red1":"#ED8796",
-# 	"peach": "#fab387",
-# 	"yellow": "#f9e2af",
-# 	"green": "#a6e3a1",
-# 	"teal": "#94e2d5",
-# 	"blue": "#89b4fa",
-# 	"sky": "#89dceb",
-# 	"white": "#cdd6f4",
-# 	"gray": "#6e6c7e",
-# 	"black": "#11111b",
-#   "rosewater":"#f5e0dc",
-# 	"bg2":"#313244",
-#   "bg3":"#24273a",
-# }
 
 
 
@@ -155,7 +128,7 @@ widget_defaults = dict(
 	font=main_font,
 	fontsize=14,
 	padding=2,
-	foreground=xrcat.getResource("background"),
+	foreground=color["background"],
 )
 extension_defaults = widget_defaults.copy()
 
@@ -165,7 +138,7 @@ def init_widgets_list():
 	
 	widgets_list = [
                 widget.CurrentLayoutIcon(
-                        foreground=xrcat.getResource("*color8"),
+                        foreground=color["color8"],
                 ),
                 widget.Spacer(
                         length=3,
@@ -178,22 +151,22 @@ def init_widgets_list():
 						padding_y = 5,
 						padding_x = 3,
 						borderwidth = 3,
-						background=xrcat.getResource("*background"),
-						highlight_color=xrcat.getResource("background"),
-						inactive=xrcat.getResource("color8"),
+						background=color["background"],
+						highlight_color=color["background"],
+						inactive=color["color8"],
                         disable_drag = True,
-                        other_current_screen_border=xrcat.getResource("color5"),
-						this_current_screen_border = xrcat.getResource("color1"),
+                        other_current_screen_border=color["color5"],
+						this_current_screen_border = color["color1"],
 				),
                 widget.Spacer(
                         length=8,
             ),
                 widget.Mpd2(
-                    foreground=xrcat.getResource("foreground"),
+                    foreground=color["foreground"],
                     play_states={'pause':'  ','play':'','stop':'  '},
                     max_chars=80,
                     status_format='{play_status} {title}',
-                    color_progress=xrcat.getResource("color9"),
+                    color_progress=color["color9"],
                     no_connection='   no connection',
 
                 ),
@@ -202,32 +175,32 @@ def init_widgets_list():
 						text="",
 						padding=-2,
 						fontsize=25,
-                        foreground= xrcat.getResource("color3"),
-                        background= xrcat.getResource("color3"),
+                        foreground= color["color3"],
+                        background= color["color3"],
 			),
 				widget.Clock(
 						format=" %H:%M",
-                        background= xrcat.getResource("color3"),
+                        background= color["color3"],
 						),
 			    widget.TextBox(
 						text="",
 						padding=-2,
 						fontsize=25,
-                        foreground= xrcat.getResource("color3"),
-                        background= xrcat.getResource("color3"),
+                        foreground= color["color3"],
+                        background= color["color3"],
 			),
 			    widget.Spacer(),	
 				widget.Systray(),
                 widget.Spacer(
                         length=3,
-                        background=xrcat.getResource("background"),
+                        background=color["background"],
             ),
                 widget.TextBox(
 						text="",
 						padding=-2,
 						fontsize=25,
-						foreground=xrcat.getResource("color9"),
-						background=xrcat.getResource("background"),
+						foreground=color["color9"],
+						background=color["background"],
 			),
 				widget.CheckUpdates(
 						update_interval = 800,
@@ -235,9 +208,9 @@ def init_widgets_list():
 						# font='JetBrains Mono ExtraBold',
 						display_format = "󰃘 {updates} ",
 						padding = 5,
-						background=xrcat.getResource("color9"),
+						background=color["color9"],
                         initial_text="Aguarde...",
-						colour_have_updates=xrcat.getResource("foreground"),
+						colour_have_updates=color["foreground"],
 						distro = "Arch_checkupdates",
                         mouse_callbacks = {'Button1': lazy.spawn('chk_up'),'Button3': lazy.spawn(terminal + ' -e sudo pacman -Syyu')},
 					),
@@ -245,24 +218,24 @@ def init_widgets_list():
 						text="",
 						padding=-2,
 						fontsize=25,
-						foreground=xrcat.getResource("color9"),
-						background=xrcat.getResource("background"),
+						foreground=color["color9"],
+						background=color["background"],
 			),
 						
 				widget.Spacer(
             			length=3,
-            			background=xrcat.getResource("background"),
+            			background=color["background"],
             ),
 
 			    widget.TextBox(
 						text="",
 						padding=-2,
 						fontsize=30,
-						foreground=xrcat.getResource("color6"),
-						background=xrcat.getResource("background"),
+						foreground=color["color6"],
+						background=color["background"],
 			),
 				widget.PulseVolume(
-						background=xrcat.getResource("color6"),
+						background=color["color6"],
 						fmt='󰕾 {}',
 						volume_down_command="pamixer -d 10",
 						volume_up_command="pamixer -i 10",
@@ -274,9 +247,38 @@ def init_widgets_list():
 						text="",
 						padding=-2,
 						fontsize=30,
-						foreground=xrcat.getResource("color6"),
-						background=xrcat.getResource("background"),
+						foreground=color["color6"],
+						background=color["background"],
 			),
+				widget.Spacer(
+            			length=3,
+            			background=color["background"],
+            ),
+			    widget.TextBox(
+						text="",
+						padding=-2,
+						fontsize=30,
+						foreground=color["color2"],
+						background=color["background"],
+			),
+
+				widget.Battery(
+						background=color["color2"],
+                        format='{char} {percent:2.0%}',
+                        charge_char='󰂄',
+                        discharge_char=' ',
+                        padding=2,
+                        
+			   ),
+
+			    widget.TextBox(
+						text="",
+						padding=-2,
+						fontsize=30,
+						foreground=color["color2"],
+						background=color["background"],
+			),
+
 
 	] 
 
@@ -293,9 +295,12 @@ def init_widgets_screen2():
     return widgets_screen2                 # Monitor 2 will display all widgets in widgets_list
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=20,background=xrcat.getResource("background"))),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=22,background=xrcat.getResource("background")))]
-
+    if monitor != '1':
+        return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=20,background=color["background"])),
+                Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=22,background=color["background"]))]
+    else:
+        return [Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=20,background=color["background"]))]
+                
 
 
 screens = init_screens()
@@ -307,7 +312,6 @@ mouse = [
 	Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
-
 #   IDK
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
@@ -315,8 +319,8 @@ bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
     border_width= 3,
-    border_focus=xrcat.getResource("color2"),
-    border_normal= xrcat.getResource("color0"),
+    border_focus=color["color2"],
+    border_normal= color["color0"],
     float_rules=[
 		*layout.Floating.default_float_rules,
 		Match(wm_class="confirmreset"),  # gitk

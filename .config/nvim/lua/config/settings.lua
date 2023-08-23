@@ -23,7 +23,7 @@ o.undofile = true
 o.list = true
 o.listchars = 'trail:·,nbsp:◇,tab: ,extends:▸,precedes:◂'
 
--- Clipboard 
+-- Clipboard
 o.clipboard = 'unnamedplus'
 
 o.ignorecase = true
@@ -42,8 +42,9 @@ o.incsearch = true
 o.smartindent = true
 
 --  colorscheme
-vim.cmd[[ hi! Normal ctermbg=NONE guibg=NONE  ]]
+vim.cmd [[ hi! Normal ctermbg=NONE guibg=NONE  ]]
 
 
--- auto indent on save
-vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+
+-- clean latex files
+vim.cmd [[ autocmd BufWritePost *.tex silent! execute "!texclear % >/dev/null 2>&1" | redraw! ]]

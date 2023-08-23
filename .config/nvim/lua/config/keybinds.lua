@@ -30,3 +30,11 @@ map('n', '<leader>vs', ':vs<CR>')
 map('n', '<leader>h', ':tabr<CR>')
 map('n', '<leader>l', ':tabl<CR>')
 map('n', '<C-n>', ':tabn<CR>')
+
+
+-- fzf
+
+map('n', '<leader>ag', ':Ag<CR>')
+map('n', '<leader>vf', ':Files<CR>')
+
+
