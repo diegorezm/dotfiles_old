@@ -1,15 +1,16 @@
 #!/bin/bash 
-declare option=(" .local
- download
- images
- Xresources
- docs 
- videos 
- code
- music
- bin
- share")
-esc=$(echo -e "${option[@]}" | rofi -theme "config_macchiato" -dmenu -p 'Choose one:')
+declare option=("  .local
+  download
+  images
+  Xresources
+  docs 
+  videos 
+  code
+  music
+  bin
+  share")
+esc=$(echo -e "${option[@]}" | dmenu  -p "Choose one:" | xargs)
+echo "${esc#* }" 
 case "${esc#* }" in
         docs)
                 esc="$HOME/docs"
@@ -27,7 +28,8 @@ case "${esc#* }" in
                 esc="$HOME/img"
         ;;
         code)
-                esc="$HOME/docs/code"
+              dir=$(ls -D "$HOME/docs/code" | dmenu -p "Choose one:")
+              esc="$HOME/docs/code/$dir"
         ;;
         music)
                 esc="$HOME/msc"
@@ -45,4 +47,4 @@ case "${esc#* }" in
                 exit 0 
         ;;
 esac
-alacritty --working-directory=$esc
+$TERMINAL --working-directory=$esc

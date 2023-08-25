@@ -1,10 +1,10 @@
 #!/bin/bash 
 
-declare option=(" Fullscreen
- Cropped
-󰃢 Clean")
+declare option=("  Fullscreen
+  Cropped
+󰃢  Clean")
 
-esc=$(echo -e "${option[@]}" | rofi -theme "print_macchiato" -dmenu -p ' ')
+esc=$(echo -e "${option[@]}" | dmenu -p 'Choose one:' | xargs)
 
 case "${esc#* }" in
         Fullscreen)

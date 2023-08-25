@@ -1,13 +1,15 @@
 #!/bin/bash 
 
+
 play_list(){
-        num=$(mpc lsplaylists | sort -n |rofi -dmenu -theme "msc_macchiato" -p 'Choose one:')
+        num=$(mpc lsplaylists | sort -n | dmenu -p 'Choose one:')
         if [ -z "$num" ];then
                   exit 0
         else
                 mpc clear 
                 mpc load $num 
-                mpc play 1
+                numb=$(mpc playlist | wc -l)
+                mpc play  $(($RANDOM % numb ))
         fi
 }
 

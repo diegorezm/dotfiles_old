@@ -1,14 +1,15 @@
 #!/bin/bash 
 
-declare option=("󰀼 vifm
- alacritty
- zsh
- xresources
- qtile
- rofi
- nvim")
+declare option=("󰀼  vifm
+  alacritty
+󰄛  kitty
+  zsh
+  xresources
+  qtile
+  rofi
+  nvim")
 
-esc=$(echo -e "${option[@]}" | rofi -theme "config_macchiato" -dmenu -p 'Choose one:')
+esc=$(echo -e "${option[@]}" | dmenu -p 'Choose one:' | xargs)
 case "${esc#* }" in
         vifm)
                 esc="$HOME/.config/vifm/vifmrc"
@@ -31,9 +32,12 @@ case "${esc#* }" in
         rofi)
                 esc="$HOME/.local/share/rofi/"
         ;;
+        kitty)
+                esc="$HOME/.config/kitty/kitty.conf"
+        ;;
         *)
                 exit 0
         ;;
 esac
 
-alacritty -e nvim $esc
+$TERMINAL -e nvim $esc

@@ -4,7 +4,7 @@ declare options=("⏻ Shutdown
  Reboot
  Lock")
 
-chs=$(echo -e "${options[@]}" | rofi -theme "power_macchiato"  -dmenu)
+chs=$(echo -e "${options[@]}" | dmenu -p "What do you want to do?")
 case "${chs#* }" in 
         Shutdown)
                 poweroff

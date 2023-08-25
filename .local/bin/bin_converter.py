@@ -15,17 +15,17 @@ def bin2dec(n):
 
 file = open('/tmp/bin.txt','w')
 
-choice=subprocess.run("echo 'dec2bin\nbin2dec' | rofi -dmenu",shell=True, stdout=subprocess.PIPE,universal_newlines=True, stderr=subprocess.PIPE).stdout.strip()
+choice=subprocess.run("echo 'dec2bin\nbin2dec' | dmenu -p 'Choose one:'",shell=True, stdout=subprocess.PIPE,universal_newlines=True, stderr=subprocess.PIPE).stdout.strip()
 try:
     match choice:
         case 'dec2bin':
-            n=subprocess.run("rofi -dmenu -p 'Decimal number:' ",shell=True, stdout=subprocess.PIPE,universal_newlines=True, stderr=subprocess.PIPE).stdout.strip()
+            n=subprocess.run("dmenu -p 'Decimal number:' ",shell=True, stdout=subprocess.PIPE,universal_newlines=True, stderr=subprocess.PIPE).stdout.strip()
             print(dec2bin(n),file = file)
-            res=subprocess.Popen("cat /tmp/bin.txt | rofi -dmenu -theme 'print_macchiato' | xclip -sel clip && dunstify 'Clipboard:' $(cat /tmp/bin.txt)",shell=True)
+            res=subprocess.Popen("cat /tmp/bin.txt | dmenu -p 'Copy:'| xclip -sel clip && dunstify 'Clipboard:' $(cat /tmp/bin.txt)",shell=True)
         case 'bin2dec':
-            n=subprocess.run("rofi -dmenu -p 'Binary number:'",shell=True, stdout=subprocess.PIPE,universal_newlines=True, stderr=subprocess.PIPE).stdout.strip()
+            n=subprocess.run("dmenu -p 'Binary number:'",shell=True, stdout=subprocess.PIPE,universal_newlines=True, stderr=subprocess.PIPE).stdout.strip()
             print(bin2dec(n),file = file)
-            res=subprocess.Popen("cat /tmp/bin.txt | rofi -dmenu  -theme 'print_macchiato'| xclip -sel clip && dunstify 'Clipboard:' $(cat /tmp/bin.txt)",shell=True)
+            res=subprocess.Popen("cat /tmp/bin.txt | dmenu  -p 'Copy:'| xclip -sel clip && dunstify 'Clipboard:' $(cat /tmp/bin.txt)",shell=True)
     file.close()
 except:
     subprocess.Popen("dunstify 'ERRO!'",shell=True)

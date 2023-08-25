@@ -1,18 +1,23 @@
 #!/bin/bash 
 
-touch index.html && touch style.css
+touch index.html && touch style.css && touch main.js
 
 echo "<!DOCTYPE html>
 <html>
   <head>
     <title></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="style.css" rel="stylesheet">
+    <meta charset=UTF-8>
+    <meta name=viewport content=width=device-width, initial-scale=1>
+    <link href='style.css' rel=stylesheet>
   </head>
   <body>
-  
+    <script src='main.js' type='text/javascript'></script>
   </body>
-</html>
-" >> index.html
+</html>" >> index.html
 
+
+echo "*{
+  margin: 0;
+  padding: 0;
+}
+">>style.css
