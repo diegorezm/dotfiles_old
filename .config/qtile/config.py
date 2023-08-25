@@ -14,19 +14,16 @@ terminal = "kitty"
 home = os.path.expanduser('~')
 nav = "firefox"
 getWifi = subprocess.run("getWifi.sh",shell=True)
-nav_app= "rofi -show drun -theme 'macchiato_styled' -show-icons"
+# nav_app= "rofi -show drun -theme 'macchiato_styled' -show-icons"
+nav_app = "dmenu_run -p 'Run:' "
 main_font = "JetBrainsMono Nerd Font"
 explorer="pcmanfm"
 monitor=subprocess.run("xrandr | grep -sw 'connected' | wc -l",shell=True, stdout=subprocess.PIPE,universal_newlines=True, stderr=subprocess.PIPE).stdout.strip()
-
-
 
 @hook.subscribe.startup_once
 def autostart():
     changer = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.Popen([changer])
-
-
 
 #   KEY BINDS
 keys = [
@@ -62,7 +59,7 @@ keys = [
 	Key([mod,"shift"], "Return", lazy.spawn("engine.sh"), desc="launch search engine"),
 	Key([mod], "e", lazy.spawn(explorer), desc="Launch file manager"),
 	Key([mod], "p", lazy.spawn("mpc toggle"), desc="Toggle mpd"),
-	Key([mod], "n", lazy.spawn("rofipd"), desc="Change the music"),
+	Key([mod], "n", lazy.spawn("dmenupd.sh"), desc="Change the music"),
 	Key([mod], "m", lazy.spawn(f"{terminal} -e ncmpcpp"), desc="Open music player"),
 	Key([mod],"F2", lazy.spawn("playlist_mpd"), desc="playlist"),
 	Key([mod],"F3", lazy.spawn("wall_eng"), desc="wallpaper script"),
@@ -112,11 +109,8 @@ layout_theme = {"border_width": 2,
                 "border_normal":color["color8"],
                 }
 
-
-
-
 layouts = [
-	layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+	layout.Columns(border_focus_stack=[color["color1"], color["color9"]], border_width=4),
 	layout.MonadTall(**layout_theme),
     layout.Stack(num_stacks=2),
     layout.RatioTile(**layout_theme),
@@ -131,7 +125,6 @@ widget_defaults = dict(
 	foreground=color["background"],
 )
 extension_defaults = widget_defaults.copy()
-
 
 # Widgets
 def init_widgets_list():
