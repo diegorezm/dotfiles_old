@@ -7,11 +7,11 @@
 
 ! red
 *color1: #ED8796
-*color9: #ED8796
+*color9: #ee99a0
 
 ! green
 *color2: #A6DA95
-*color10: #A6DA95
+*color10: #8bd5ca
 
 ! yellow
 *color3: #EED49F
@@ -33,3 +33,8 @@
 *color7: #B8C0E0
 *color15: #A5ADCB
 
+
+#define  bg_dmenu       #24273A
+#define  fg_dmenu       #CAD3F5
+#define  bg_sel_dmenu   #EED49F
+#define fg_sel_dmenu    #24273A  
