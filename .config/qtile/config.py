@@ -1,19 +1,28 @@
 # IMPORT
 import os
+import json
 import subprocess
 from libqtile import hook,widget
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
-from colors.ayu_dark import ayu_dark as color
 
+with open("{}/.config/qtile/colors/colorscheme.json".format(os.getenv("HOME"))) as file:
+        colors_json = json.load(file)
 
+colors = colors_json
+
+@lazy.function
+def themeChanger(qtile):
+    script = os.path.expanduser("~/.local/bin/changeTheme")
+    return subprocess.Popen(script)
+
+ 
 #   DEFINE VARIABLES
 mod = "mod4"
 terminal = "kitty"
 home = os.path.expanduser('~')
-nav = "firefox"
-getWifi = subprocess.run("getWifi.sh",shell=True)
+nav = os.getenv("BROWSER")
 # nav_app= "rofi -show drun -theme 'macchiato_styled' -show-icons"
 nav_app = "dmenu_run -p 'Run:' "
 main_font = "JetBrainsMono Nerd Font"
@@ -56,7 +65,7 @@ keys = [
 	Key([],"Print",lazy.spawn("screenshot.sh")),
 	Key([mod],"F1",lazy.spawn("power.sh")),
 	Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-	Key([mod,"shift"], "Return", lazy.spawn("engine.sh"), desc="launch search engine"),
+	Key([mod,"shift"], "Return",themeChanger(), desc="Change the theme of the entire system"),
 	Key([mod], "e", lazy.spawn(explorer), desc="Launch file manager"),
 	Key([mod], "p", lazy.spawn("mpc toggle"), desc="Toggle mpd"),
 	Key([mod], "n", lazy.spawn("dmenupd.sh"), desc="Change the music"),
@@ -105,12 +114,12 @@ groups.append(
 
 layout_theme = {"border_width": 2,
                 "margin": 8,
-                "border_focus":color["color13"],
-                "border_normal":color["color8"],
+                "border_focus":colors["color13"],
+                "border_normal":colors["color8"],
                 }
 
 layouts = [
-	layout.Columns(border_focus_stack=[color["color1"], color["color9"]], border_width=4),
+	layout.Columns(border_focus_stack=[colors["color1"], colors["color9"]], border_width=4),
 	layout.MonadTall(**layout_theme),
     layout.Stack(num_stacks=2),
     layout.RatioTile(**layout_theme),
@@ -122,7 +131,7 @@ widget_defaults = dict(
 	font=main_font,
 	fontsize=14,
 	padding=2,
-	foreground=color["background"],
+	foreground=colors["background"],
 )
 extension_defaults = widget_defaults.copy()
 
@@ -131,7 +140,7 @@ def init_widgets_list():
 	
 	widgets_list = [
                 widget.CurrentLayoutIcon(
-                        foreground=color["color8"],
+                        foreground=colors["color8"],
                 ),
                 widget.Spacer(
                         length=3,
@@ -144,22 +153,22 @@ def init_widgets_list():
 						padding_y = 5,
 						padding_x = 3,
 						borderwidth = 3,
-						background=color["background"],
-						highlight_color=color["background"],
-						inactive=color["color8"],
+						background=colors["background"],
+						highlight_color=colors["background"],
+						inactive=colors["color8"],
                         disable_drag = True,
-                        other_current_screen_border=color["color5"],
-						this_current_screen_border = color["color1"],
+                        other_current_screen_border=colors["color5"],
+						this_current_screen_border = colors["color1"],
 				),
                 widget.Spacer(
                         length=8,
             ),
                 widget.Mpd2(
-                    foreground=color["foreground"],
+                    foreground=colors["foreground"],
                     play_states={'pause':'  ','play':'','stop':'  '},
                     max_chars=80,
                     status_format='{play_status} {title}',
-                    color_progress=color["color9"],
+                    color_progress=colors["color9"],
                     no_connection='   no connection',
 
                 ),
@@ -168,32 +177,32 @@ def init_widgets_list():
 						text="",
 						padding=-2,
 						fontsize=25,
-                        foreground= color["color3"],
-                        background= color["color3"],
+                        foreground= colors["color3"],
+                        background= colors["color3"],
 			),
 				widget.Clock(
 						format=" %H:%M",
-                        background= color["color3"],
+                        background= colors["color3"],
 						),
 			    widget.TextBox(
 						text="",
 						padding=-2,
 						fontsize=25,
-                        foreground= color["color3"],
-                        background= color["color3"],
+                        foreground= colors["color3"],
+                        background= colors["color3"],
 			),
 			    widget.Spacer(),	
 				widget.Systray(),
                 widget.Spacer(
                         length=3,
-                        background=color["background"],
+                        background=colors["background"],
             ),
                 widget.TextBox(
 						text="",
 						padding=-2,
 						fontsize=25,
-						foreground=color["color9"],
-						background=color["background"],
+						foreground=colors["color9"],
+						background=colors["background"],
 			),
 				widget.CheckUpdates(
 						update_interval = 800,
@@ -201,9 +210,9 @@ def init_widgets_list():
 						# font='JetBrains Mono ExtraBold',
 						display_format = "󰃘 {updates} ",
 						padding = 5,
-						background=color["color9"],
+						background=colors["color9"],
                         initial_text="Aguarde...",
-						colour_have_updates=color["foreground"],
+						colour_have_updates=colors["foreground"],
 						distro = "Arch_checkupdates",
                         mouse_callbacks = {'Button1': lazy.spawn('chk_up'),'Button3': lazy.spawn(terminal + ' -e sudo pacman -Syyu')},
 					),
@@ -211,24 +220,24 @@ def init_widgets_list():
 						text="",
 						padding=-2,
 						fontsize=25,
-						foreground=color["color9"],
-						background=color["background"],
+						foreground=colors["color9"],
+						background=colors["background"],
 			),
 						
 				widget.Spacer(
             			length=3,
-            			background=color["background"],
+            			background=colors["background"],
             ),
 
 			    widget.TextBox(
 						text="",
 						padding=-2,
 						fontsize=30,
-						foreground=color["color6"],
-						background=color["background"],
+						foreground=colors["color6"],
+						background=colors["background"],
 			),
 				widget.PulseVolume(
-						background=color["color6"],
+						background=colors["color6"],
 						fmt='󰕾 {}',
 						volume_down_command="pamixer -d 10",
 						volume_up_command="pamixer -i 10",
@@ -240,23 +249,23 @@ def init_widgets_list():
 						text="",
 						padding=-2,
 						fontsize=30,
-						foreground=color["color6"],
-						background=color["background"],
+						foreground=colors["color6"],
+						background=colors["background"],
 			),
 				widget.Spacer(
             			length=3,
-            			background=color["background"],
+            			background=colors["background"],
             ),
 			    widget.TextBox(
 						text="",
 						padding=-2,
 						fontsize=30,
-						foreground=color["color2"],
-						background=color["background"],
+						foreground=colors["color2"],
+						background=colors["background"],
 			),
 
 				widget.Battery(
-						background=color["color2"],
+						background=colors["color2"],
                         format='{char} {percent:2.0%}',
                         charge_char='󰂄',
                         discharge_char=' ',
@@ -268,8 +277,8 @@ def init_widgets_list():
 						text="",
 						padding=-2,
 						fontsize=30,
-						foreground=color["color2"],
-						background=color["background"],
+						foreground=colors["color2"],
+						background=colors["background"],
 			),
 
 
@@ -289,10 +298,10 @@ def init_widgets_screen2():
 
 def init_screens():
     if monitor != '1':
-        return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=20,background=color["background"])),
-                Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=22,background=color["background"]))]
+        return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=20,background=colors["background"])),
+                Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=22,background=colors["background"]))]
     else:
-        return [Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=20,background=color["background"]))]
+        return [Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=20,background=colors["background"]))]
                 
 
 
@@ -312,8 +321,8 @@ bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
     border_width= 3,
-    border_focus=color["color2"],
-    border_normal= color["color0"],
+    border_focus=colors["color2"],
+    border_normal= colors["color0"],
     float_rules=[
 		*layout.Floating.default_float_rules,
 		Match(wm_class="confirmreset"),  # gitk

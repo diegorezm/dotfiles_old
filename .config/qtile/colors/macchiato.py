@@ -1,5 +1,6 @@
 macchiato = {
-    "background": "#24273A",
+    "name":           "macchiato",
+    "background":   "#24273A",
     "foreground"  : "#CAD3F5",
 
     "color0"      : "#494D64",

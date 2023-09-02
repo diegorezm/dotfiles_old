@@ -1,5 +1,5 @@
-! #include "colorschemes/macchiato.Xresources" 
-#include "colorschemes/ayu-dark.Xresources" 
+#include "colors.Xresources"
+
 ! urxvt
 URxvt*buffered: true
 URxvt*cursorBlink: true

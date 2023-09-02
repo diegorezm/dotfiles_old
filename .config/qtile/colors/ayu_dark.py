@@ -1,5 +1,6 @@
 
 ayu_dark = {
+  "name":           "ayu_dark",
   "foreground"  :   '#b3b1ad' ,
   "background"  :   '#0a0e14' ,
   "color0" :       '#0a0e14'  ,
