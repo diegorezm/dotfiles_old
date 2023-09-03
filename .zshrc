@@ -1,23 +1,34 @@
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
  exec startx
 fi
+
 #       General conf
 ufetch
 stty stop undef
 autoload -U colors && colors
 
+#       Editor config
 export EDITOR=/bin/nvim
 export VISUAL=/bin/nvim
 
+
+
 HISTSIZE=1000
 SAVEHIST=1000
-HISTFILE=~/.cache/zsh/history
+CACHEDIR=~/.cache/zsh
+HISTFILE=$CACHEDIR/history
+
+#     Check if .cache/zsh exist
+if [[ ! -d  "$CACHEDIR" ]]; then
+  mkdir -p ~/.cache/zsh 
+fi
+
 setopt correctall
 unsetopt correct_all
 
+
 #        PROMPT
-NEWLINE=$'\n'
-PROMPT=" %(?.%F{154}√.%F{160}? %?)%f %B%F{213}  %0~%f%b%F{154} > "
+  PROMPT=" %(?.%F{154}√.%F{160}? %?)%f %B%F{213}  %0~%f%b%F{154} > "
 
 export KEYTIMEOUT=1
 #       Show vim mode
@@ -44,6 +55,7 @@ preexec() { echo -ne '\e[5 q' ;}
 #       alias
 alias ap="sudo pacman -S"
 alias p="sudo pacmna -Sy"
+alias android="aft-mtp-mount $HOME/docs/pendrive"
 alias rp="sudo pacman -Rcs"
 alias pu="sudo pacman -Syu"
 alias aps="pacman -Ss"
@@ -55,6 +67,7 @@ alias sxiv="sxiv -b"
 alias xd="xrdb -merge $HOME/.config/Xresources"
 alias n="nvim"
 alias ms="ncmpcpp"
+alias fmrecord="ffmpeg -video_size 1920x1080 -framerate 30 -f x11grab -s 1920x1080 -i :0.0+0,0 -c:v libx264 -preset ultrafast output.mp4"
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME/'
 alias yt-audio="yt-dlp --add-metadata -x -i -f bestaudio"
 alias yt-video="yt-dlp --add-metadata -i -f best/video"
@@ -62,6 +75,7 @@ alias l="exa -al --color=always --group-directories-first"
 alias ls="exa -a --color=always --group-directories-first"
 alias sl="exa -a --color=always --group-directories-first"
 alias cp="cp -i"
+alias live-server="live-server --browser=$BROWSER"
 alias dcompile="sudo make clean install"
 alias commit="git commit -m"
 alias push="git push origin"
