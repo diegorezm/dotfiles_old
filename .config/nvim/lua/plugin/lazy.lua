@@ -16,6 +16,7 @@ local plugins = {
   { "catppuccin/nvim", name = "catppuccin" },
   {'Shatur/neovim-ayu'},
   {'junegunn/fzf'},
+  { "ellisonleao/gruvbox.nvim"},
   {'junegunn/fzf.vim'},
   {'norcalli/nvim-colorizer.lua'},
   {

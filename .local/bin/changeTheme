@@ -2,6 +2,7 @@
 
 declare -a ops=("Catppuccin macchiato" 
 "Ayu Dark"
+"gruvbox"
 )
 
 esc=$(printf '%s\n'  "${ops[@]}" | dmenu  -p "Choose one:")
@@ -13,45 +14,83 @@ fi
 
 change_qtile () {
   qtile_path="$HOME/.config/qtile/"
-  if [ "$esc" == "${ops[0]}" ]; then
-    cd $qtile_path
-    python3 "$HOME/.config/qtile/changeTheme.py" --theme=1
-  elif [ "$esc" == "${ops[1]}" ]; then
-    cd $qtile_path
-    python3 "$HOME/.config/qtile/changeTheme.py" --theme=2
-  fi
-    qtile cmd-obj -o cmd -f reload_config
+  case "$esc" in
+    "${ops[0]}") 
+      cd $qtile_path
+      python3 "$HOME/.config/qtile/changeTheme.py" --theme=1
+    ;;
+    "${ops[1]}") 
+      cd $qtile_path
+      python3 "$HOME/.config/qtile/changeTheme.py" --theme=2
+    ;;
+    "${ops[2]}") 
+      cd $qtile_path
+      python3 "$HOME/.config/qtile/changeTheme.py" --theme=3
+    ;;
+
+    *) 
+      cd $qtile_path
+      python3 "$HOME/.config/qtile/changeTheme.py" --theme=1
+    ;;
+  esac
+  qtile cmd-obj -o cmd -f reload_config
 }
 
 change_kitty () {
   kitty_path="$HOME/.config/kitty/"
-  if [ "$esc" == "${ops[0]}" ]; then
-    cd $kitty_path
-    cp "colors/macchiato.conf"  "colorscheme.conf"
-  elif [ "$esc" == "${ops[1]}" ]; then
-    cd $kitty_path
-    cp "colors/ayu.conf"  "colorscheme.conf"
-  fi
+
+  case "$esc" in
+    "${ops[0]}") 
+      cd $kitty_path
+      cp "colors/macchiato.conf"  "colorscheme.conf"
+      ;;
+
+    "${ops[1]}") 
+      cd $kitty_path
+      cp "colors/ayu.conf"  "colorscheme.conf"
+      ;;
+
+    "${ops[2]}") 
+      cd $kitty_path
+      cp "colors/gruvbox.conf"  "colorscheme.conf"
+      ;;
+      *) echo default
+      ;;
+  esac
 }
 
 change_neovim () {
-  if [ "$esc" == "${ops[0]}" ]; then
-    echo 'vim.cmd.colorscheme "catppuccin-macchiato"' > "$HOME/.config/nvim/lua/plugin/config/colorscheme.lua"
-  elif [ "$esc" == "${ops[1]}" ]; then
-    echo 'vim.cmd.colorscheme "ayu-dark"' > "$HOME/.config/nvim/lua/plugin/config/colorscheme.lua"
-  fi
+  case "$esc" in
+    "${ops[0]}") 
+        echo 'vim.cmd.colorscheme "catppuccin-macchiato"' > "$HOME/.config/nvim/lua/plugin/config/colorscheme.lua"
+      ;;
+    "${ops[0]}") 
+        echo 'vim.cmd.colorscheme "ayu-dark"' > "$HOME/.config/nvim/lua/plugin/config/colorscheme.lua"
+      ;;
+    "${ops[0]}") 
+        echo 'vim.cmd.colorscheme "gruvbox"' > "$HOME/.config/nvim/lua/plugin/config/colorscheme.lua"
+      ;;
+
+  esac
 }
 
 change_xresources(){
    xpath="$HOME/.config/Xresources/"
-  if [ "$esc" == "${ops[0]}" ]; then
-    cd $xpath
-    cp "colorschemes/macchiato.Xresources" "$xpath/colors.Xresources"
-  elif [ "$esc" == "${ops[1]}" ]; then
-    cd $xpath
-    cp "colorschemes/ayu-dark.Xresources" "$xpath/colors.Xresources"
-  fi
-   xrdb -merge ~/.config/Xresources/Xresources 
+  case "$esc" in
+    "${ops[0]}") 
+        cd $xpath
+        cp "colorschemes/macchiato.Xresources" "$xpath/colors.Xresources"
+      ;;
+    "${ops[1]}") 
+        cd $xpath
+        cp "colorschemes/ayu-dark.Xresources" "$xpath/colors.Xresources"
+      ;;
+    "${ops[2]}") 
+        cd $xpath
+        cp "colorschemes/gruvbox.Xresources" "$xpath/colors.Xresources"
+      ;;
+  esac
+  xrdb -merge ~/.config/Xresources/Xresources 
 }
 
 change_kitty && change_qtile && change_neovim && change_xresources

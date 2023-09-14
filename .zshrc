@@ -12,7 +12,6 @@ export EDITOR=/bin/nvim
 export VISUAL=/bin/nvim
 
 
-
 HISTSIZE=1000
 SAVEHIST=1000
 CACHEDIR=~/.cache/zsh
@@ -28,7 +27,7 @@ unsetopt correct_all
 
 
 #        PROMPT
-  PROMPT=" %(?.%F{154}√.%F{160}? %?)%f %B%F{213}  %0~%f%b%F{154} > "
+PROMPT=" %(?.%F{154}√.%F{160}? %?)%f %B%F{213}  %0~%f%b%F{154} > "
 
 export KEYTIMEOUT=1
 #       Show vim mode
@@ -56,6 +55,7 @@ preexec() { echo -ne '\e[5 q' ;}
 alias ap="sudo pacman -S"
 alias p="sudo pacmna -Sy"
 alias android="aft-mtp-mount $HOME/docs/pendrive"
+alias create_venv="pyenv exec python -m venv .venv && source .venv/bin/activate"
 alias rp="sudo pacman -Rcs"
 alias pu="sudo pacman -Syu"
 alias aps="pacman -Ss"
@@ -127,3 +127,9 @@ unpack () {
 
 #       source 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

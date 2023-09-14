@@ -8,7 +8,6 @@ fi
 # lxsession & 
 redshift -l -22.905843:-47.052617 &
 # changer &
-picom -b
 xrdb -merge ~/.config/Xresources/Xresources &
 discord &
 xset r rate 300 50 &

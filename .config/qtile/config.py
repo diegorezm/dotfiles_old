@@ -37,7 +37,8 @@ def autostart():
 #   KEY BINDS
 keys = [
 	Key([mod], 's', lazy.group["scratchpad"].dropdown_toggle('term'),desc="dropdown terminal"),
-	Key([mod], 'a', lazy.group["scratchpad"].dropdown_toggle('pavuctl'),desc="dropdown audio control"),
+	Key([mod], 'a', lazy.group["scratchpad"].dropdown_toggle('pavucontrol'),desc="dropdown audio control"),
+	Key([mod], "e", lazy.group["scratchpad"].dropdown_toggle(explorer), desc="Launch file manager"),
 	Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
 	Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
 	Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
@@ -66,14 +67,13 @@ keys = [
 	Key([mod],"F1",lazy.spawn("power.sh")),
 	Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 	Key([mod,"shift"], "Return",themeChanger(), desc="Change the theme of the entire system"),
-	Key([mod], "e", lazy.spawn(explorer), desc="Launch file manager"),
 	Key([mod], "p", lazy.spawn("mpc toggle"), desc="Toggle mpd"),
 	Key([mod], "n", lazy.spawn("dmenupd.sh"), desc="Change the music"),
 	Key([mod], "m", lazy.spawn(f"{terminal} -e ncmpcpp"), desc="Open music player"),
 	Key([mod],"F2", lazy.spawn("playlist_mpd"), desc="playlist"),
 	Key([mod],"F3", lazy.spawn("wall_eng"), desc="wallpaper script"),
 	Key([mod,"shift"],"F3", lazy.spawn("wallpaper_machine.sh"), desc="wallpaper script"),
-	Key([mod],"F4", lazy.spawn("binary_converter"), desc="for fun"),
+	Key([mod],"F4", lazy.spawn("prjs.sh"), desc="for fun"),
 	Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 	Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
 	Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
@@ -107,7 +107,9 @@ dgroups_key_binder = simple_key_binder(mod)
 groups.append(
 		ScratchPad("scratchpad",[
 				DropDown("term",terminal,height=0.6, width=0.80,x=0.1,y=0.2),
-				DropDown("pavuctl","pavucontrol",height=0.6, width=0.80,x=0.1,y=0.2),]),
+				DropDown("pavucontrol","pavucontrol",height=0.6, width=0.80,x=0.1,y=0.2),
+				DropDown(explorer,explorer,height=0.6, width=0.80,x=0.1,y=0.2),
+                ]),
 
 )
 
@@ -163,15 +165,21 @@ def init_widgets_list():
                 widget.Spacer(
                         length=8,
             ),
-                widget.Mpd2(
-                    foreground=colors["foreground"],
-                    play_states={'pause':'  ','play':'','stop':'  '},
-                    max_chars=80,
-                    status_format='{play_status} {title}',
-                    color_progress=colors["color9"],
-                    no_connection='   no connection',
+                # widget.Mpd2(
+                #     foreground=colors["foreground"],
+                #     play_states={'pause':'  ','play':'','stop':'  '},
+                #     max_chars=80,
+                #     status_format='{play_status} {title}',
+                #     color_progress=colors["color9"],
+                #     no_connection='   no connection',
+                #
+                # ),
 
-                ),
+                widget.WindowName(
+                     foreground=colors["foreground"],
+                     max_chars = 60,
+
+                    ),
 			    widget.Spacer(),	
 			    widget.TextBox(
 						text="",
@@ -298,8 +306,8 @@ def init_widgets_screen2():
 
 def init_screens():
     if monitor != '1':
-        return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=20,background=colors["background"])),
-                Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=22,background=colors["background"]))]
+        return [Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=20,background=colors["background"])),
+                Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=22,background=colors["background"]))]
     else:
         return [Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=20,background=colors["background"]))]
                 

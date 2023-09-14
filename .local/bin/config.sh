@@ -21,7 +21,7 @@ case "${esc#* }" in
                 esc="$HOME/.zshrc"
         ;;
         qtile)
-                esc="$HOME/.config/qtile/config.py"
+                esc="$HOME/.config/qtile"
         ;;
         nvim)
                 esc="$HOME/.config/nvim/"
