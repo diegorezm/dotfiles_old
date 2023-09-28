@@ -67,7 +67,7 @@ keys = [
 	Key([mod],"F1",lazy.spawn("power.sh")),
 	Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 	Key([mod,"shift"], "Return",themeChanger(), desc="Change the theme of the entire system"),
-	Key([mod], "p", lazy.spawn("mpc toggle"), desc="Toggle mpd"),
+	Key([mod], "p", lazy.spawn("playerctl -p 'spotify' play-pause"), desc="Toggle mpd"),
 	Key([mod], "n", lazy.spawn("dmenupd.sh"), desc="Change the music"),
 	Key([mod], "m", lazy.spawn(f"{terminal} -e ncmpcpp"), desc="Open music player"),
 	Key([mod],"F2", lazy.spawn("playlist_mpd"), desc="playlist"),
@@ -96,7 +96,8 @@ groups = [
 	Group("5",layout='monadtall'),
 	Group("6",layout='monadtall'),
 	Group("7",layout='monadtall'),
-	Group("8",matches=[Match(wm_class=["discord"])],layout='floating')
+	Group("8",matches=[Match(wm_class=["discord"])],layout='floating'),
+	Group("9",matches=[Match(wm_class=["spotify"])],layout='floating')
 ]   
 
 from libqtile.dgroups import simple_key_binder
@@ -165,7 +166,7 @@ def init_widgets_list():
                 widget.Spacer(
                         length=8,
             ),
-                # widget.Mpd2(
+                #   widget.Mpd2(
                 #     foreground=colors["foreground"],
                 #     play_states={'pause':'  ','play':'','stop':'  '},
                 #     max_chars=80,
@@ -174,12 +175,16 @@ def init_widgets_list():
                 #     no_connection='   no connection',
                 #
                 # ),
-
-                widget.WindowName(
-                     foreground=colors["foreground"],
-                     max_chars = 60,
-
-                    ),
+                widget.Mpris2(
+                    name='spotify',
+                    foreground = colors["foreground"],
+                    display_metadata=['xesam:title', 'xesam:artist'],
+                    playing_text=' {track}',
+                    paused_text=' {track}',
+                    no_metadata_text= 'NO METADATA',
+                    scroll_chars=None,
+                    max_chars=80,
+                ),
 			    widget.Spacer(),	
 			    widget.TextBox(
 						text="",
@@ -302,7 +307,7 @@ def init_widgets_screen1():
 
 def init_widgets_screen2():
     widgets_screen2 = init_widgets_list()
-    return widgets_screen2                 # Monitor 2 will display all widgets in widgets_list
+    return widgets_screen2                 
 
 def init_screens():
     if monitor != '1':
@@ -342,6 +347,7 @@ floating_layout = layout.Floating(
 		Match(wm_class="feh"),  # gitk
 		Match(wm_class="ssh-askpass"),  # ssh-askpass
 		Match(wm_class="discord"),  # ssh-askpass
+		Match(wm_class="spotify"),  # ssh-askpass
         Match(wm_class="Galculator"),  # ssh-askpass
 		Match(title="branchdialog"),  # gitk
 		Match(title="pinentry"),  # GPG key password entry
