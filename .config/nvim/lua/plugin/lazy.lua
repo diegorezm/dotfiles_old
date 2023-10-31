@@ -1,11 +1,12 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
     lazypath,
   })
 end
@@ -13,32 +14,47 @@ vim.opt.rtp:prepend(lazypath)
 
 
 local plugins = {
-  { "catppuccin/nvim", name = "catppuccin" },
-  {'Shatur/neovim-ayu'},
-  {'junegunn/fzf'},
-  { "ellisonleao/gruvbox.nvim"},
-  {'junegunn/fzf.vim'},
-  {'norcalli/nvim-colorizer.lua'},
-  {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    dependencies = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' },
-      {
-        'williamboman/mason.nvim',
-        build = function()
-          pcall(vim.api.nvim_command, 'MasonUpdate')
-        end,
-      },
-      { 'williamboman/mason-lspconfig.nvim' },
 
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'rafamadriz/friendly-snippets' },
-      { 'L3MON4D3/LuaSnip' },
+  --- theme
+  { "catppuccin/nvim",            name = "catppuccin" },
+  { "ellisonleao/gruvbox.nvim" },
+  { 'Shatur/neovim-ayu' },
+  { 'norcalli/nvim-colorizer.lua' },
+
+  -- fzf
+  {'junegunn/fzf'},
+  {'junegunn/fzf.vim'},
+
+  --cmp
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
+      "onsails/lspkind.nvim",
+    }
+  },
+
+  --completion
+  {
+    "williamboman/mason.nvim",
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      "williamboman/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+    }
+  },
+
+  {
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      { "antosha417/nvim-lsp-file-operations", config = true },
     }
   },
   -- nvim tree
@@ -66,13 +82,13 @@ local plugins = {
       require('Comment').setup()
     end
   },
+  -- plugin to auto () {} "" etc
   {
     "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    version = "*",
     event = "VeryLazy",
     config = function()
       require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
       })
     end
   }

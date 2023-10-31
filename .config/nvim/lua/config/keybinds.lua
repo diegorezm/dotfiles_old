@@ -31,10 +31,6 @@ map('n', '<leader>h', ':tabr<CR>')
 map('n', '<leader>l', ':tabl<CR>')
 map('n', '<C-n>', ':tabn<CR>')
 
-
--- fzf
-
-map('n', '<leader>ag', ':Ag<CR>')
+-- fzf 
 map('n', '<leader>vf', ':Files<CR>')
-
-
+map('n', '<leader>ag', ':A<CR>')
