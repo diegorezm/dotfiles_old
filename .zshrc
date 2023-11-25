@@ -64,6 +64,7 @@ alias mpv="devour mpv"
 alias grep="grep --color=auto"
 alias vf="vifm"
 alias sxiv="sxiv -b"
+alias genpsw="head -c 16 /dev/random | od -A n -t x1 | sed 's/[[:space:]]//g'"
 alias xd="xrdb -merge $HOME/.config/Xresources"
 alias n="nvim"
 alias ms="ncmpcpp"
@@ -128,8 +129,10 @@ unpack () {
 #       source 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
+NPM_PACKAGES="${HOME}/.local/pkg/"
+export PATH="$PATH:$NPM_PACKAGES/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-

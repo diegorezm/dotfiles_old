@@ -64,6 +64,9 @@ lspconfig["html"].setup({
 lspconfig["tsserver"].setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  settings = {
+    linter = "eslint_d"
+  }
 })
 
 -- configure css server
@@ -72,36 +75,61 @@ lspconfig["cssls"].setup({
   on_attach = on_attach,
 })
 
--- configure tailwindcss server
+
+--  rust server
+lspconfig["rust_analyzer"].setup({
+  on_attach = on_attach,
+  settings = {
+    ["rust-analyzer"] = {
+      imports = {
+        granularity = {
+          group = "module",
+        },
+        prefix = "self",
+      },
+      cargo = {
+        buildScripts = {
+          enable = true,
+        },
+      },
+      procMacro = {
+        enable = true
+      },
+    }
+  }
+})
+
 lspconfig["tailwindcss"].setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
 
+
 lspconfig["emmet_ls"].setup({
   capabilities = capabilities,
   on_attach = on_attach,
-  filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
+  filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" ,"rust"},
 })
 
 
- lspconfig["lua_ls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim" },
-          },
-          workspace = {
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.stdpath("config") .. "/lua"] = true,
-            },
-          },
+lspconfig["lua_ls"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.stdpath("config") .. "/lua"] = true,
         },
+      },
+    },
   }
-}) 
+})
+
 lspconfig["pyright"].setup({
   filetypes = { "python" },
   capabilities = capabilities,

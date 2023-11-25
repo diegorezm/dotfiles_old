@@ -21,9 +21,19 @@ local plugins = {
   { 'Shatur/neovim-ayu' },
   { 'norcalli/nvim-colorizer.lua' },
 
-  -- fzf
-  {'junegunn/fzf'},
-  {'junegunn/fzf.vim'},
+  --git
+  { "kdheepak/lazygit.nvim" },
+
+  -- telescope
+  {
+
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = {
+      "BurntSushi/ripgrep",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }
+    }
+  },
 
   --cmp
   {
@@ -82,6 +92,17 @@ local plugins = {
       require('Comment').setup()
     end
   },
+
+  --markdown
+
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  },
+
+
   -- plugin to auto () {} "" etc
   {
     "kylechui/nvim-surround",

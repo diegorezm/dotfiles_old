@@ -32,5 +32,5 @@ map('n', '<leader>l', ':tabl<CR>')
 map('n', '<C-n>', ':tabn<CR>')
 
 -- fzf 
-map('n', '<leader>vf', ':Files<CR>')
+map('n', '<leader>vf', ':Telescope find_files<CR>')
 map('n', '<leader>ag', ':A<CR>')
