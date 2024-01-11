@@ -40,9 +40,9 @@ o.hlsearch = false
 o.incsearch = true
 
 o.smartindent = true
-
 --  colorscheme
 vim.cmd [[ hi! Normal ctermbg=NONE guibg=NONE  ]]
 
 -- clean latex files
 vim.cmd [[ autocmd BufWritePost *.tex silent! execute "!texclear % >/dev/null 2>&1" | redraw! ]]
+

@@ -34,3 +34,10 @@ map('n', '<C-n>', ':tabn<CR>')
 -- fzf 
 map('n', '<leader>vf', ':Telescope find_files<CR>')
 map('n', '<leader>ag', ':A<CR>')
+
+vim.api.nvim_set_keymap('n', '<leader>o', ':!opener ' .. vim.fn.expand('%:p') .. '<CR>', { noremap = true, silent = true })
+
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv")
+
+map("v", "gg", ":LazyGit<CR>")

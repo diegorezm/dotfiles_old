@@ -31,7 +31,6 @@ ntfs-3g
 pacman-contrib
 pavucontrol
 pcmanfm
-pikaur
 playerctl
 pulseaudio
 pulseaudio-alsa

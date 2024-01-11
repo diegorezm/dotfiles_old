@@ -64,10 +64,10 @@ change_neovim () {
     "${ops[0]}") 
         echo 'vim.cmd.colorscheme "catppuccin-macchiato"' > "$HOME/.config/nvim/lua/plugin/config/colorscheme.lua"
       ;;
-    "${ops[0]}") 
+    "${ops[1]}") 
         echo 'vim.cmd.colorscheme "ayu-dark"' > "$HOME/.config/nvim/lua/plugin/config/colorscheme.lua"
       ;;
-    "${ops[0]}") 
+    "${ops[2]}") 
         echo 'vim.cmd.colorscheme "gruvbox"' > "$HOME/.config/nvim/lua/plugin/config/colorscheme.lua"
       ;;
 

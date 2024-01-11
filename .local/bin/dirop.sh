@@ -47,4 +47,16 @@ case "${esc#* }" in
                 exit 0 
         ;;
 esac
-$TERMINAL --working-directory=$esc
+
+case $TERMINAL in
+  st)
+    $TERMINAL -d $esc
+  ;;
+  kitty)
+    $TERMINAL --working-directory=$esc
+  ;;
+  *)
+    $TERMINAL --working-directory=$esc
+  ;;
+    
+esac

@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-wifi_ssid=$(nmcli -f SSID,BARS,SECURITY device wifi list | tail -n +2 | rofi -dmenu | awk '{print $1}')
+wifi_ssid=$(nmcli -f SSID,BARS,SECURITY device wifi list | tail -n +2 | dmenu | awk '{print $1}')
 case "$wifi_ssid" in
   "")
     exit

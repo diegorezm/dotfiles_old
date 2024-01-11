@@ -22,7 +22,7 @@ def themeChanger(qtile):
 
 #   DEFINE VARIABLES
 mod = "mod4"
-terminal = "kitty"
+terminal = os.getenv("TERMINAL")
 home = os.path.expanduser('~')
 nav = os.getenv("BROWSER")
 # nav_app= "rofi -show drun -theme 'macchiato_styled' -show-icons"
@@ -92,7 +92,7 @@ keys = [
     # Key([mod], "m", lazy.spawn(f"{terminal} -e ncmpcpp"), desc="Open music player"),
     Key([mod], "F2", lazy.spawn("playlist_mpd"), desc="playlist"),
     Key([mod], "F3", lazy.spawn(
-        "wallpaper_machine.AppImage"), desc="wallpaper script"),
+        "wallpaper_cl.AppImage"), desc="wallpaper script"),
     Key([mod], "F4", lazy.spawn("prjs.sh"), desc="for fun"),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
@@ -380,7 +380,8 @@ floating_layout = layout.Floating(
         Match(wm_class="confirmreset"),  # gitk
         Match(wm_class="pavucontrol"),  # gitk
         Match(wm_class="Thunar"),  # gitk
-        Match(wm_class="wallpaper-cl"),  # gitk
+        Match(wm_class="wallpapercl"),  # gitk
+        Match(wm_class="tk"),  # gitk
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
         Match(wm_class="Sxiv"),  # gitk

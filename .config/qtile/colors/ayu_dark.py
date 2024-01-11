@@ -1,4 +1,3 @@
-
 ayu_dark = {
   "name":           "ayu_dark",
   "foreground"  :   '#b3b1ad' ,

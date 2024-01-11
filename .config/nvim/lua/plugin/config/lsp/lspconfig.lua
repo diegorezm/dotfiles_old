@@ -5,7 +5,7 @@ local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
 -- keymaps
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   opts.buffer = bufnr
 
   opts.desc = "go to definition"
@@ -69,6 +69,29 @@ lspconfig["tsserver"].setup({
   }
 })
 
+lspconfig["eslint"].setup({
+  bin = "eslint_d",
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "typescriptreact", "javascriptreact", "svelte", "javascript", "typescript" },
+  code_actions = {
+    enable = true,
+    apply_on_save = {
+      enable = true,
+      types = { "directive", "problem", "suggestion", "layout" },
+    },
+    disable_rule_comment = {
+      enable = true,
+      location = "separate_line",
+    },
+  },
+  diagnostics = {
+    enable = true,
+    report_unused_disable_directives = false,
+    run_on = "save",
+  },
+})
+
 -- configure css server
 lspconfig["cssls"].setup({
   capabilities = capabilities,
@@ -78,6 +101,7 @@ lspconfig["cssls"].setup({
 
 --  rust server
 lspconfig["rust_analyzer"].setup({
+  capabilities = capabilities,
   on_attach = on_attach,
   settings = {
     ["rust-analyzer"] = {
@@ -104,11 +128,16 @@ lspconfig["tailwindcss"].setup({
   on_attach = on_attach,
 })
 
+lspconfig["svelte"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "svelte" }
+})
 
 lspconfig["emmet_ls"].setup({
   capabilities = capabilities,
   on_attach = on_attach,
-  filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" ,"rust"},
+  filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
 })
 
 
